@@ -9,6 +9,8 @@ R_PIN = 3
 G_PIN = 4
 B_PIN = 5
 
+
+
 def set(red, green, blue):
     
-    return
+    return 0

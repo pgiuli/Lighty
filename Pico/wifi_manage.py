@@ -27,6 +27,10 @@ def get_credentials():
 #Im sorry for this
 def disconnect():
     wlan.disconnect()
+    if wlan.status() == 0:
+        print('Disconnected from network!')
+    else:
+        raise RuntimeWarning('Something happened when disconnecting. WLAN status is: {}'.format(wlan.status))
 
 
 #Main Connection Rutine
@@ -34,6 +38,7 @@ def connect():
     
     ssid, password = get_credentials()
     wlan.connect(ssid, password)
+    print('Attempting to connect, please wait.')
 
     max_wait = 25
     while max_wait > 0:
@@ -41,7 +46,7 @@ def connect():
         if wlan.status() < 0 or wlan.status() == 3:
             break
         max_wait -= 1
-        print('Connecting, please wait.')
+        
         time.sleep(1)
 
     #Throw error if connction is not successful after the specified time.
