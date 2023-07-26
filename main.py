@@ -1,6 +1,6 @@
 import wifi_manage
-import leds
-import request
+import led_control
+import color_request
 
 wifi_manage.connect()
 
