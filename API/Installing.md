@@ -6,10 +6,7 @@ This API will allow a Lighty device to request RGB values on demand to be set on
 
 ## Install the Python requirements
 
-```
-pip install -r requirements.txt
-
-```
+`$ pip install -r requirements.txt`
 
 ## Configure API
 
