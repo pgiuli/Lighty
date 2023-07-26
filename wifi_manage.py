@@ -30,8 +30,9 @@ def disconnect():
 
 
 #Main Connection Rutine
-def connect(ssid, password):
-
+def connect():
+    
+    ssid, password = get_credentials()
     wlan.connect(ssid, password)
 
     max_wait = 25
@@ -54,6 +55,6 @@ def connect(ssid, password):
         
 
 #connect(get_credentials()) doesn't work for some reason i'm to lazy to figure out QwQ
-ssid, password = get_credentials()
-connect(ssid, password)
+
+
 
