@@ -3,3 +3,5 @@ wifi.txt
 
 /.vscode
 /__pycache__
+
+/API/__pycache__
