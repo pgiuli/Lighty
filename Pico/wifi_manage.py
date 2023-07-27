@@ -1,7 +1,9 @@
 #This file manages the wifi connection and its corresponding routines
 
-import time
+from time import sleep
 import network
+
+import led_control
 
 print('Loaded WiFi File!')
 
@@ -12,6 +14,9 @@ rp2.country('ES')
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 
+#Prints an overview of the WiFi connection status (IP, DNS, SSID, RSSI...)
+def get_status():
+    return
 
 #Get credentials from file (just so that the password is not stored in the .py file because github :'D)
 def get_credentials():
@@ -27,9 +32,12 @@ def get_credentials():
 #Im sorry for this
 def disconnect():
     wlan.disconnect()
+    sleep(1)
     if wlan.status() == 0:
         print('Disconnected from network!')
+        led_control.alert('white')
     else:
+        led_control.alert('red')
         raise RuntimeWarning('Something happened when disconnecting. WLAN status is: {}'.format(wlan.status))
 
 
@@ -40,26 +48,27 @@ def connect():
     wlan.connect(ssid, password)
     print('Attempting to connect, please wait.')
 
-    max_wait = 25
+    max_wait = 30
     while max_wait > 0:
         #Lower than 0 means an error. 3 is connection with IP.  More on: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
         if wlan.status() < 0 or wlan.status() == 3:
             break
+        led_control.loading('wifi')
         max_wait -= 1
         
-        time.sleep(1)
+        
 
     #Throw error if connction is not successful after the specified time.
     if wlan.status() != 3:
+        led_control.alert('red')
         raise RuntimeError('Connection Failed! Error: {}'.format(wlan.status))
     else:
         print('Connected!')
-        #print(wlan.ifconfig())
-        ip = wlan.ifconfig()[0]
-        print("Pi's IP is: {}".format(ip))
+        led_control.alert('success')
+
+        get_status()
         
 
 #connect(get_credentials()) doesn't work for some reason i'm to lazy to figure out QwQ
-
 
 

@@ -4,6 +4,7 @@ import machine
 import neopixel
 from time import sleep
 from random import randint
+from colors import colors
 
 print('Loaded LED File!')
 
@@ -13,6 +14,7 @@ led_count = 16
 ring = neopixel.NeoPixel(machine.Pin(np_pin), led_count)
 
 def startup_anim():
+    print('Displaying startup animation!')
     for i in range(led_count):
         ring[i] = (randint(1,255), randint(1,255), randint(1,255))
         ring.write()
@@ -21,12 +23,16 @@ def startup_anim():
     sleep(.35)
 
     for i in range(led_count):
+
         ring[i] = (0, 0, 0)
         ring.write()
         sleep(.05)
 
+    clear()
+
 
 def display_battery(percentage):
+    print('Displaying battery: {}%!'.format(percentage))
     if percentage >= 0 or percentage <= 100:
         active_leds = round(led_count/100*percentage)
     
@@ -44,11 +50,12 @@ def display_battery(percentage):
     else:
         raise RuntimeError('Percentage is out of bounds!')
     
-def clear(smooth = False):
-    
+def clear(smooth = False, reverse = False):
+    print('Clearing LEDs!')
     if smooth:
         leds = list(range(led_count))
-        leds.reverse()
+        if reverse:
+            leds.reverse()
         for i in leds:
             ring[i] = (0, 0, 0)
             ring.write()
@@ -60,4 +67,40 @@ def clear(smooth = False):
             ring.write()
 
     ring.write()
+
+def loading(color=None, repeat=1):
+    print('Displaying loading animation!')
+    #Spins x times a color
+    for i in range(repeat):
+        if color != None:
+            ledcolor = colors.get(color)
+        else:
+            ledcolor = (255, 255, 255)
+
+        for i in range(led_count):
+            ring[i] = ledcolor
+            ring.write()
+            sleep(0.05)
+            ring[i] = (0, 0, 0)
+            ring.write()
+
+        ring.write()
+        clear()
+
+def alert(color=None):
+    print('Displaying alert!')
+    #Flashes 3 times
+    for i in range(3):
+        if color != None:
+            ledcolor = colors.get(color)
+        else:
+            ledcolor = (255, 255, 255)
+
+        for i in range(led_count):
+            ring[i] = ledcolor
+
+        ring.write()
+        sleep(0.15)
+        clear()
+        sleep(0.15)
 
