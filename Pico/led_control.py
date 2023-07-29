@@ -8,17 +8,20 @@ from colors import colors
 
 print('Loaded LED File!')
 
-np_pin = 4
+
+pin = 4
 led_count = 16
 
-ring = neopixel.NeoPixel(machine.Pin(np_pin), led_count)
+ring_pin = machine.Pin(pin, machine.Pin.OUT)
+
+ring = neopixel.NeoPixel(ring_pin, led_count)
 
 def startup_anim():
     print('Displaying startup animation!')
     for i in range(led_count):
         ring[i] = (randint(1,255), randint(1,255), randint(1,255))
         ring.write()
-        sleep(.05)
+        sleep(.1)
 
     sleep(.35)
 
@@ -90,7 +93,7 @@ def loading(color=None, repeat=1):
 def alert(color=None):
     print('Displaying alert!')
     #Flashes 3 times
-    for i in range(3):
+    for i in range(4):
         if color != None:
             ledcolor = colors.get(color)
         else:
@@ -104,3 +107,22 @@ def alert(color=None):
         clear()
         sleep(0.15)
 
+def display(rgb):
+
+    print('Displaying RGB color: {}'.format(rgb))
+
+    for i in range(21):
+        updated_color = tuple(round(value * (i / 20)) for value in rgb)
+        ring.fill(updated_color)
+        ring.write()
+        sleep(0.05)
+    
+    sleep(5)
+
+    steps = list(range(21))
+    steps.reverse()
+    for i in steps:
+        updated_color = tuple(round(value * (i / 20)) for value in rgb)
+        ring.fill(updated_color)
+        ring.write()
+        sleep(0.05)
