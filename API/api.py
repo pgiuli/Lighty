@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 import colors
 
+import random
+
 app = FastAPI()
 
 custom_color = 100, 100, 100
@@ -19,8 +21,9 @@ def get_color(preset=None):
 @app.get("/lighty-rgb/")
 
 async def get_rgb_values():
-    
-    red, green, blue = get_color(current_preset)
+    print('Sent values!')
+    red, green, blue = random.randint(1, 255), random.randint(1, 255), random.randint(1, 255)
+    #red, green, blue = get_color(current_preset)
     response = {
         "red": red,
         "green": green,
