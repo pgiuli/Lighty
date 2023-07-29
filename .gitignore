@@ -5,5 +5,7 @@ wifi.txt
 /__pycache__
 
 /Pico/.vscode/
+/Pico/__pycache__
 
 /API/__pycache__
+/API/.vscode/
