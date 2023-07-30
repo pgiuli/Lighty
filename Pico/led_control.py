@@ -52,7 +52,7 @@ def display_battery(percentage):
             sleep(0.05)
         
         sleep(4)
-        clear(True)
+        clear(smooth=True, reverse=True)
 
     else:
         raise RuntimeError('Percentage is out of bounds!')
@@ -71,7 +71,7 @@ def clear(smooth = False, reverse = False):
         #ring.fill(0, 0, 0)
         for i in range(led_count):
             ring[i] = (0, 0, 0)
-            ring.write()
+        ring.write()
 
     ring.write()
 
@@ -79,7 +79,7 @@ def loading(color=None, repeat=1):
     print('Displaying loading animation!')
     #Spins x times a color
     for i in range(repeat):
-        if color != None:
+        if color != None and colors.get(color) != None:
             ledcolor = colors.get(color)
         else:
             ledcolor = (255, 255, 255)
@@ -87,12 +87,11 @@ def loading(color=None, repeat=1):
         for i in range(led_count):
             ring[i] = ledcolor
             ring.write()
-            sleep(0.05)
+            sleep(0.063)
             ring[i] = (0, 0, 0)
             ring.write()
 
         ring.write()
-        clear()
 
 def alert(color=None):
     print('Displaying alert!')
@@ -130,3 +129,7 @@ def display(rgb):
         ring.fill(updated_color)
         ring.write()
         sleep(0.05)
+
+
+def rainbow():
+    return
