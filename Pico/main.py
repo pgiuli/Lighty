@@ -33,8 +33,10 @@ led_control.display(current_rgb)
 
 
 def manual_run():
+    global current_rgb
     #gc.collect()
     rgb = color_request.get_color()
+    current_rgb = rgb
     led_control.display(rgb)
     #print(gc.mem_free())
 
