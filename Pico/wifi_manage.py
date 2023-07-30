@@ -3,6 +3,10 @@
 from time import sleep
 import network
 
+import gc
+
+gc.enable()
+
 import led_control
 
 print('Loaded WiFi File!')
@@ -13,10 +17,13 @@ import rp2
 rp2.country('ES')
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
+wlan.config(pm = 0xa11140)
 
 #Prints an overview of the WiFi connection status (IP, DNS, SSID, RSSI...)
 def get_status():
-    return
+    status = wlan.ifconfig()
+    print("IP Address: {}\nGateway: {}\nDNS: {}".format(status[0],status[2],status[3]))
+
 
 #Get credentials from file (just so that the password is not stored in the .py file because github :'D)
 def get_credentials():
@@ -54,6 +61,7 @@ def connect():
         if wlan.status() < 0 or wlan.status() == 3:
             break
         led_control.loading('wifi')
+        print('sending load wifi')
         max_wait -= 1
         
         
