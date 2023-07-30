@@ -6,13 +6,17 @@ from time import sleep
 from random import randint
 from colors import colors
 
+import gc
+
+gc.enable()
+
 print('Loaded LED File!')
 
 
-pin = 4
+pin_number = 4
 led_count = 16
 
-ring_pin = machine.Pin(pin, machine.Pin.OUT)
+ring_pin = machine.Pin(pin_number, machine.Pin.OUT)
 
 ring = neopixel.NeoPixel(ring_pin, led_count)
 
