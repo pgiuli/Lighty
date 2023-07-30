@@ -13,7 +13,7 @@ def get_color():
     data = response.json()
     response.close() #Garbage collection
     response = None #Garbage collection
-    return data['red'], data['green'], data['blue'], #data['force_update']
+    return (data['red'], data['green'], data['blue']), data['hai']
 
 
 
