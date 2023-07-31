@@ -32,20 +32,22 @@ def get_credentials():
     #[:-1] Removes the breakline expression. (\n)
     ssid = lines[0][:-1]
     password = lines[1]
-
+    credentials_file.close()
     return ssid, password
 
 
 #Im sorry for this
 def disconnect():
-    wlan.disconnect()
-    sleep(1)
     if wlan.status() == 0:
-        print('Disconnected from network!')
-        led_control.alert('white')
+        print('Board already disconnected')
     else:
-        led_control.alert('red')
-        raise RuntimeWarning('Something happened when disconnecting. WLAN status is: {}'.format(wlan.status))
+        wlan.disconnect()
+        sleep(1)
+        if wlan.status() == 0:
+            print('Disconnected from network!')
+            led_control.alert('white')
+        else:
+            print('wtf how did it mess up disconnecting')
 
 
 #Main Connection Rutine
@@ -60,8 +62,9 @@ def connect():
         #Lower than 0 means an error. 3 is connection with IP.  More on: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf
         if wlan.status() < 0 or wlan.status() == 3:
             break
-        led_control.loading('wifi')
         print('sending load wifi')
+        led_control.loading('wifi')
+
         max_wait -= 1
         
         
