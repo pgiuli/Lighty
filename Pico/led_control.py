@@ -1,7 +1,7 @@
 #This file takes care of everything involving the RGB NeoPixel Ring. 
 
 import machine
-import neopixel
+from neopixel import NeoPixel
 from time import sleep
 from random import randint
 from colors import colors
@@ -18,7 +18,7 @@ led_count = 16
 
 ring_pin = machine.Pin(pin_number, machine.Pin.OUT)
 
-ring = neopixel.NeoPixel(ring_pin, led_count)
+ring = NeoPixel(ring_pin, led_count)
 
 def startup_anim():
     print('Displaying startup animation!')
@@ -132,4 +132,5 @@ def display(rgb):
 
 
 def rainbow():
+    print('Displaying rainbow!')
     return
