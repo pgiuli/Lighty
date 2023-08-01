@@ -53,7 +53,7 @@ def manual_run():
     global current_rgb
     #gc.collect()
     try:
-        rgb, _ = color_request.get_color()
+        rgb, _ = color_request.get_color(haiback=True)
     except:
         print('Error during request!')
         led_control.alert('error')
