@@ -4,6 +4,7 @@ wifi.txt
 /.vscode
 /__pycache__
 
+/Pico/notmain.py
 /Pico/.vscode/
 /Pico/__pycache__
 
