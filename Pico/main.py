@@ -53,7 +53,7 @@ def manual_run():
     global current_rgb
     #gc.collect()
     try:
-        rgb, _ = color_request.get_color(haiback=True)
+        rgb, _ = color_request.get_color(manual=True)
     except:
         print('Error during request!')
         led_control.alert('error')
@@ -106,15 +106,15 @@ async def main():
     #uasyncio.create_task(beep())
 
     while True:
+        
+        print('Idling...')
         await check_button()
         print('button pressed')
         manual_run()
-        print('Idling...')
+        
 
         #_thread.start_new_thread(manual_run, ())
         
 
 while True:
     uasyncio.run(main())
-        
-
