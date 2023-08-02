@@ -41,8 +41,11 @@ except:
     led_control.alert('error')
 else:
     print('Current RGB is: {}'.format(current_rgb))
-    led_control.display(current_rgb)
+    #led_control.display(current_rgb)
+   
+
     
+
 #gc.collect()
 #print(gc.mem_free())
 
@@ -53,13 +56,22 @@ def manual_run():
     global current_rgb
     #gc.collect()
     try:
-        rgb, _ = color_request.get_color(manual=True)
+        rgb, _ = color_request.get_color()
     except:
         print('Error during request!')
         led_control.alert('error')
     else:
         current_rgb = rgb
-        led_control.display(rgb)
+        led_control.loading('white')
+        
+        if button.value() == 0:
+            print('Button was held!')
+            color_request.get_color(hai=True)
+            led_control.rainbow()
+        
+        else:
+            time.sleep(0.2)
+            led_control.display(rgb)
 
 
 async def check_new(force=False):
@@ -77,19 +89,14 @@ async def check_new(force=False):
             if hai == True:
                 print('Recieved hai!')
                 led_control.rainbow()
-
+                await uasyncio.sleep(.75)
             if new_rgb != current_rgb or force:
                     led_control.display(new_rgb)
                     current_rgb = new_rgb
             else:
                     print('No changes in RGB values')
-        await uasyncio.sleep(300)
+        await uasyncio.sleep(10)
 
-
-async def beep():
-    while True:
-        print('boop')
-        await uasyncio.sleep(1)
 
 
 async def check_button():
@@ -103,10 +110,8 @@ async def main():
 
     uasyncio.create_task(check_new())
 
-    #uasyncio.create_task(beep())
-
     while True:
-        
+
         print('Idling...')
         await check_button()
         print('button pressed')

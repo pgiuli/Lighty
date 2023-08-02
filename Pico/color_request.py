@@ -6,24 +6,24 @@ print('Loaded Request File!')
 
 baseurl = 'http://10.1.1.47:8000/lighty-rgb/'
 
-append = '?manual=true'
+append = '?hai=true'
 
-def get_color(manual=False):
+def get_color(hai=False):
     
-    if manual:
+    if hai:
         requesturl = baseurl + append   
         print('Sending request with hai!')
-        print('Sending HTTP request to: {}'.format(requesturl))
+        #print('Sending HTTP request to: {}'.format(requesturl))
     else:
         requesturl = baseurl
-        print('Sending HTTP request to: {}'.format(requesturl))
+        #print('Sending HTTP request to: {}'.format(requesturl))
 
     response = urequests.get(requesturl)
     data = response.json()
 
     response.close() #Garbage collection
     response = None #Garbage collection
-
+    #print(data)
     return (data['red'], data['green'], data['blue']), data['hai']
 
 
