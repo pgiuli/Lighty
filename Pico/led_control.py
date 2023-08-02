@@ -35,8 +35,6 @@ def startup_anim():
         ring.write()
         sleep(.05)
 
-    clear()
-
 
 def display_battery(percentage):
     print('Displaying battery: {}%!'.format(percentage))
@@ -87,7 +85,7 @@ def loading(color=None, repeat=1):
         for i in range(led_count):
             ring[i] = ledcolor
             ring.write()
-            sleep(0.063)
+            sleep((1/led_count)*2)
             ring[i] = (0, 0, 0)
             ring.write()
 
