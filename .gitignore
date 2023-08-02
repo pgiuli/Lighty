@@ -10,3 +10,4 @@ wifi.txt
 
 /API/__pycache__
 /API/.vscode/
+/API/.env
