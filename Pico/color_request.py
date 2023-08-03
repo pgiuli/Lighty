@@ -3,12 +3,10 @@ import urequests
 
 print('Loaded Request File!')
 
-api_ip = '10.1.1.47'
-api_port = '8000'
 
-apiurl = "http://{}:{}/lighty-rgb/".format(api_ip, api_port)
+apiurl = ""
 
-append = '?hai=true'
+append = "hai=true"
 
 def get_color(hai=False):
     
