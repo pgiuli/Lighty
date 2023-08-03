@@ -11,6 +11,7 @@ custom_color = 100, 100, 100
 current_preset = 'happy'
 send_hai = False
 
+client_token = os.getenv('CLIENT_TOKEN')
 admin_token = os.getenv('API_TOKEN')
 telegram_token = os.getenv('TELEGRAM_TOKEN')
 admin_id = os.getenv('ADMIN_ID')
@@ -33,9 +34,9 @@ def recieved_hai():
     else:
         print('Successfully sent hai to Telegram!')
 
-@app.get("/lighty/rgb-values")
+@app.get("/lighty/get-values")
 
-async def get_rgb_values(hai: bool = Query(False)):
+async def get_rgb_values(hai: bool = Query(False), token: str = Query(None)):
     global send_hai
 
     print('Sent values!')
@@ -47,11 +48,11 @@ async def get_rgb_values(hai: bool = Query(False)):
         "blue": blue,
         "hai" : send_hai
     }
-    if send_hai:
+    if send_hai and token == client_token:
         send_hai = False
         print('Sent hai! Hai is now off.')
     
-    if hai:
+    if hai and token == client_token:
         recieved_hai()
 
     return response
