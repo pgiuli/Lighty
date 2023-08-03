@@ -3,20 +3,31 @@ import urequests
 
 print('Loaded Request File!')
 
+def get_credentials():
+    credentials_file = open('secrets.txt', 'r')
+    lines = credentials_file.readlines()
+    #[:-1] Removes the breakline expression. (\n)
+    api = lines[2][:-1]
+    token = lines[3]
+    credentials_file.close()
+    return api, token
 
-apiurl = ""
 
-append = "hai=true"
+api, token = get_credentials()
+
+url = "{}?token={}".format(api, token)
+hai_append = "&hai=true"
+
 
 def get_color(hai=False):
     
     if hai:
-        requesturl = apiurl + append   
+        requesturl = url + hai_append  
         print('Sending request with hai!')
-        #print('Sending HTTP request to: {}'.format(requesturl))
+        print('Sending HTTP request to: {}'.format(requesturl))
     else:
-        requesturl = apiurl
-        #print('Sending HTTP request to: {}'.format(requesturl))
+        requesturl = url
+        print('Sending HTTP request to: {}'.format(requesturl))
 
     response = urequests.get(requesturl)
     data = response.json()

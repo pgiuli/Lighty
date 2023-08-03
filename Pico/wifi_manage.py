@@ -29,16 +29,19 @@ def get_status():
 def get_credentials():
     credentials_file = open('secrets.txt', 'r')
     lines = credentials_file.readlines()
+    print(lines)
     #[:-1] Removes the breakline expression. (\n)
     ssid = lines[0][:-1]
-    password = lines[1]
+    password = lines[1][:-1]
     credentials_file.close()
+    print(ssid)
+    print(password)
     return ssid, password
 
 
 #Im sorry for this
 def disconnect():
-    if wlan.status() == 0:
+    if wlan.status() < 1:
         print('Board already disconnected')
     else:
         wlan.disconnect()
@@ -72,7 +75,7 @@ def connect():
     #Throw error if connction is not successful after the specified time.
     if wlan.status() != 3:
         led_control.alert('red')
-        raise RuntimeError('Connection Failed! Error: {}'.format(wlan.status))
+        raise RuntimeError('Connection Failed! Error: {}'.format(wlan.status()))
     else:
         print('Connected!')
         led_control.alert('success')
@@ -81,5 +84,4 @@ def connect():
         
 
 #connect(get_credentials()) doesn't work for some reason i'm to lazy to figure out QwQ
-
 
