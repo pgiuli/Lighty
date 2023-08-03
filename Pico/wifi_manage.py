@@ -29,13 +29,10 @@ def get_status():
 def get_credentials():
     credentials_file = open('secrets.txt', 'r')
     lines = credentials_file.readlines()
-    print(lines)
     #[:-1] Removes the breakline expression. (\n)
     ssid = lines[0][:-1]
     password = lines[1][:-1]
     credentials_file.close()
-    print(ssid)
-    print(password)
     return ssid, password
 
 
