@@ -53,6 +53,13 @@ def manual_run():
         print('Hai dismissed') 
         show_hai = False
 
+    led_control.loading('white')
+
+    if button.value() == 0:
+            print('Button was held!')
+            color_request.get_color(hai=True)
+            led_control.rainbow()
+
     try:
         rgb, _ = color_request.get_color()
     except:
@@ -60,16 +67,9 @@ def manual_run():
         led_control.alert('error')
     else:
         current_rgb = rgb
-        led_control.loading('white')
-        
-        if button.value() == 0:
-            print('Button was held!')
-            color_request.get_color(hai=True)
-            led_control.rainbow()
-        
-        else:
-            time.sleep(0.2)
-            led_control.display(rgb)
+
+        time.sleep(0.2)
+        led_control.display(rgb)
 
 
 async def check_new(force=False):
