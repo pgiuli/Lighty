@@ -30,9 +30,9 @@ time.sleep(2)
 button = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
 switch = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
 
+show_hai = False
 
-#gc.collect()
-#print(gc.mem_free())
+
 try:
     current_rgb, _ = color_request.get_color()
 except:
@@ -44,17 +44,15 @@ else:
     #led_control.display(current_rgb)
    
 
-    
-
-#gc.collect()
-#print(gc.mem_free())
-
-
-
 
 def manual_run():
     global current_rgb
-    #gc.collect()
+    global show_hai
+
+    if show_hai:
+        print('Hai dismissed') 
+        show_hai = False
+
     try:
         rgb, _ = color_request.get_color()
     except:
@@ -76,9 +74,10 @@ def manual_run():
 
 async def check_new(force=False):
     global current_rgb
+    global show_hai
 
     while True:
-        #gc.collect()
+
         try:
             new_rgb, hai = color_request.get_color()
             print('Recieved RGB values: {}'.format(new_rgb))
@@ -87,6 +86,7 @@ async def check_new(force=False):
              led_control.alert('error')
         else:
             if hai == True:
+                show_hai = True
                 print('Recieved hai!')
                 led_control.rainbow()
                 await uasyncio.sleep(.75)
@@ -97,6 +97,14 @@ async def check_new(force=False):
                     print('No changes in RGB values')
         await uasyncio.sleep(10)
 
+
+async def notify_hai():
+    global show_hai
+    while True:
+        if show_hai:
+            print('Showing rainbow (Notif not dissmised)')
+            led_control.rainbow()
+        await uasyncio.sleep(30)
 
 
 async def check_button():
@@ -109,6 +117,7 @@ async def check_button():
 async def main():
 
     uasyncio.create_task(check_new())
+    uasyncio.create_task(notify_hai())
 
     while True:
 
