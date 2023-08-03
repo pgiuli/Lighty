@@ -33,7 +33,7 @@ def recieved_hai():
     else:
         print('Successfully sent hai to Telegram!')
 
-@app.get("/lighty-rgb/")
+@app.get("/lighty/rgb-values")
 
 async def get_rgb_values(hai: bool = Query(False)):
     global send_hai
@@ -56,7 +56,7 @@ async def get_rgb_values(hai: bool = Query(False)):
 
     return response
 
-@app.get("/lighty-rgb/set-values/")
+@app.get("/lighty/set-values/")
 async def set_values(hai: bool = Query(None), preset: str = Query(None), token: str = Query(None)):
     global send_hai, current_preset
 

@@ -17,7 +17,7 @@ api_token = os.getenv('API_TOKEN')
 api_ip = os.getenv('API_IP')
 api_port = os.getenv('API_PORT')
 
-api_url = "http://{}:{}/lighty-rgb/set-values/".format(api_ip, api_port)
+api_url = "http://{}:{}/lighty/set-values/".format(api_ip, api_port)
 
 def update_api(hai = None, preset = None):
     params = {
