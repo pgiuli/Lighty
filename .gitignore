@@ -1,10 +1,10 @@
-wifi.txt
+secrets.txt
 .picowgo
 
 /.vscode
 /__pycache__
 
-/Pico/notmain.py
+/Pico/secrets.txt
 /Pico/.vscode/
 /Pico/__pycache__
 
