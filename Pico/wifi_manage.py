@@ -27,7 +27,7 @@ def get_status():
 
 #Get credentials from file (just so that the password is not stored in the .py file because github :'D)
 def get_credentials():
-    credentials_file = open('wifi.txt', 'r')
+    credentials_file = open('secrets.txt', 'r')
     lines = credentials_file.readlines()
     #[:-1] Removes the breakline expression. (\n)
     ssid = lines[0][:-1]
