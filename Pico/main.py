@@ -27,8 +27,12 @@ for i in range(5):
 time.sleep(2)
 
 
+button_led = machine.Pin(14, machine.Pin.OUT)
 button = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
+
 switch = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
+
+
 
 show_hai = False
 
@@ -51,6 +55,7 @@ def manual_run():
 
     if show_hai:
         print('Hai dismissed') 
+        button_led.low()
         show_hai = False
 
     led_control.loading('white')
@@ -87,6 +92,7 @@ async def check_new(force=False):
         else:
             if hai == True:
                 show_hai = True
+                button_led.high()
                 print('Recieved hai!')
                 led_control.rainbow()
                 await uasyncio.sleep(.75)
