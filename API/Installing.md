@@ -1,6 +1,6 @@
 # How to install and run the Lighty API
 
-## This API is extremely barebones and pretty user-unfriendly. 
+## This API installation guide is not final and will get modified. 
 
 This API will allow a Lighty device to request RGB values on demand to be set on the device's LEDs.
 
@@ -11,8 +11,10 @@ This API will allow a Lighty device to request RGB values on demand to be set on
 ## Configure API
 
 Set your default custom color and initial preset on the api.py file.
-Feel free to add more color presets on colors.py (Pull requests are welcome!) 
+Feel free to add more color presets on colors.py (Pull requests are welcome!)
 
-## Running the API (Temporary)
+Create a .env file in the API folder following the skeleton provided
 
-`$ uvicorn api:app --reload`
+## Running the services 
+
+`$ python3 main.py` (On the API Folder)
