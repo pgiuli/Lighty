@@ -94,7 +94,7 @@ def loading(color=None, repeat=1):
 def alert(color=None):
     print('Displaying alert!')
     #Flashes 3 times
-    for i in range(4):
+    for i in range(3):
         if color != None:
             ledcolor = colors.get(color)
         else:
@@ -120,7 +120,7 @@ def display(rgb):
     
     sleep(5)
 
-    steps = list(range(21))
+    steps = list(range(1, 21))
     steps.reverse()
     for i in steps:
         updated_color = tuple(round(value * (i / 20)) for value in rgb)
