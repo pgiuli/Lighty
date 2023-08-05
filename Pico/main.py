@@ -5,7 +5,7 @@ import led_control
 import color_request
 import time
 import uasyncio
-import _thread
+import sensor_manage
 import machine
 import gc
 
@@ -77,6 +77,7 @@ def manual_run():
         led_control.display(rgb)
 
 
+
 async def check_new(force=False):
     global current_rgb
     global show_hai
@@ -130,7 +131,11 @@ async def main():
         print('Idling...')
         await check_button()
         print('button pressed')
-        manual_run()
+        if switch.value() == 0:
+            manual_run()
+        if switch.value() == 1:
+            battery = sensor_manage.get_battery()
+            led_control.display_battery(battery)
         
 
         #_thread.start_new_thread(manual_run, ())
