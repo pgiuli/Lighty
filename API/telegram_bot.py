@@ -14,10 +14,15 @@ bot_token = os.getenv('TELEGRAM_TOKEN')
 admin_id = os.getenv('ADMIN_ID')
 api_token = os.getenv('API_TOKEN')
 
-api_ip = os.getenv('API_IP')
-api_port = os.getenv('API_PORT')
 
-api_url = "http://{}:{}/lighty/set-values/".format(api_ip, api_port)
+api_url = 'http://localhost:3000/lighty/set-values' 
+
+
+#Use this if not using a docker install
+#api_ip = os.getenv('API_IP')
+#api_port = os.getenv('API_PORT')
+#api_url = "http://{}:{}/lighty/set-values/".format(api_ip, api_port)
+
 
 def update_api(hai = None, preset = None):
     params = {

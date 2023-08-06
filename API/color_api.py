@@ -57,7 +57,7 @@ async def get_rgb_values(hai: bool = Query(False), token: str = Query(None)):
 
     return response
 
-@app.get("/lighty/set-values/")
+@app.get("/lighty/set-values")
 async def set_values(hai: bool = Query(None), preset: str = Query(None), token: str = Query(None)):
     global send_hai, current_preset
 
@@ -79,4 +79,5 @@ async def set_values(hai: bool = Query(None), preset: str = Query(None), token: 
 
 def start_api():
     import uvicorn
-    uvicorn.run("color_api:app", host="0.0.0.0", port=8000, reload=True)
+    #uvicorn.run("color_api:app", host=os.getenv('API_IP'), port=os.getenv('API_PORT'), reload=True)
+    uvicorn.run("color_api:app", host="0.0.0.0", port=8300, reload=True)
