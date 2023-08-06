@@ -11,3 +11,4 @@ secrets.txt
 /API/__pycache__
 /API/.vscode/
 /API/.env
+/API/Dockerfile-secret
