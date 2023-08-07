@@ -15,7 +15,7 @@ admin_id = os.getenv('ADMIN_ID')
 api_token = os.getenv('API_TOKEN')
 
 
-api_url = 'http://localhost:3000/lighty/set-values' 
+api_url = 'http://localhost:8300/lighty/set-values' 
 
 
 #Use this if not using a docker install
