@@ -1,5 +1,7 @@
 import machine
 
+print('Loaded Sensor File!')
+
 voltage_sensor_pin = machine.Pin(26)
 voltage_sensor = machine.ADC(voltage_sensor_pin)
 
@@ -11,7 +13,7 @@ def get_voltage():
     
     adc_value = voltage_sensor.read_u16()
     adc_voltage  = (adc_value * VRef) / 65535.0
-    battery_voltage = adc_voltage*(R1+R2)/R2
+    battery_voltage = (adc_voltage*(R1+R2)/R2) - 0.07723505 #Voltage when circuit is open, this makes it surprisingly accurate
     return battery_voltage
             
 

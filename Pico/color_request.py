@@ -1,5 +1,6 @@
 #This file manages all requests sent to the API
 import urequests
+import gc
 
 print('Loaded Request File!')
 
@@ -29,6 +30,7 @@ def get_color(hai=False):
         requesturl = url
         print('Sending HTTP request to: {}'.format(requesturl))
 
+    gc.collect()
     response = urequests.get(requesturl)
     data = response.json()
 

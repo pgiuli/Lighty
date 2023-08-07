@@ -5,6 +5,7 @@ from neopixel import NeoPixel
 from time import sleep
 from random import randint
 from colors import colors
+from colors import gradient
 
 import gc
 
@@ -120,15 +121,26 @@ def display(rgb):
     
     sleep(5)
 
-    steps = list(range(1, 21))
+    steps = list(range(0, 21))
     steps.reverse()
     for i in steps:
         updated_color = tuple(round(value * (i / 20)) for value in rgb)
         ring.fill(updated_color)
         ring.write()
         sleep(0.05)
+    
+    clear()
 
 
 def rainbow():
     print('Displaying rainbow!')
+    for i in range(led_count):
+        ring[i] = gradient[i]
+        ring.write()
+        sleep(0.05)
+    
+    sleep(1)
+
+    clear(smooth=True, reverse=True)
+
     return

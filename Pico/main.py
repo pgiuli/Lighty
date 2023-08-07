@@ -8,6 +8,7 @@ import uasyncio
 import sensor_manage
 import machine
 import gc
+from time import sleep
 
 gc.enable()
 print(gc.mem_free())
@@ -15,11 +16,21 @@ print(gc.mem_free())
 #Purposely run without threading to avoid two modules interacting with the LED ring
 led_control.startup_anim()
 
+sleep(2)
+
+wifi_manage.disconnect()
+
+sleep(2)
+
 for i in range(5):
         try:
             wifi_manage.connect()
         except:
             print('Connection failed')
+            sleep(2)
+            wifi_manage.disconnect()
+            for i in range(15):
+                led_control.loading('white')
         else:
             break
 
@@ -28,7 +39,7 @@ time.sleep(2)
 
 
 button_led = machine.Pin(14, machine.Pin.OUT)
-button = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
+button = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_UP)
 
 switch = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
 
@@ -61,20 +72,29 @@ def manual_run():
     led_control.loading('white')
 
     if button.value() == 0:
-            print('Button was held!')
-            color_request.get_color(hai=True)
-            led_control.rainbow()
+        print('Button was held!')
+        led_control.rainbow()
+        try:
+            rgb, _ = color_request.get_color(hai=True)
+        except:
+            print('Error during request!')
+            led_control.alert('error')
+        else:
+            current_rgb = rgb
+            time.sleep(0.2)
+            led_control.display(rgb)
 
-    try:
-        rgb, _ = color_request.get_color()
-    except:
-        print('Error during request!')
-        led_control.alert('error')
     else:
-        current_rgb = rgb
+        try:
+            rgb, _ = color_request.get_color()
+        except:
+            print('Error during request!')
+            led_control.alert('error')
+        else:
+            current_rgb = rgb
 
-        time.sleep(0.2)
-        led_control.display(rgb)
+            time.sleep(0.2)
+            led_control.display(rgb)
 
 
 
@@ -102,7 +122,7 @@ async def check_new(force=False):
                     current_rgb = new_rgb
             else:
                     print('No changes in RGB values')
-        await uasyncio.sleep(10)
+        await uasyncio.sleep(30)
 
 
 async def notify_hai():
