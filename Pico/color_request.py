@@ -36,6 +36,7 @@ def get_color(hai=False):
 
     response.close() #Garbage collection
     response = None #Garbage collection
+    gc.collect()
     #print(data)
     return (data['red'], data['green'], data['blue']), data['hai']
 

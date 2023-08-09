@@ -11,6 +11,7 @@ import gc
 from time import sleep
 
 gc.enable()
+gc.collect()
 print(gc.mem_free())
 
 #Purposely run without threading to avoid two modules interacting with the LED ring
@@ -61,6 +62,7 @@ else:
 
 
 def manual_run():
+    gc.collect()
     global current_rgb
     global show_hai
 
@@ -103,6 +105,7 @@ async def check_new(force=False):
     global show_hai
 
     while True:
+        gc.collect()
 
         try:
             new_rgb, hai = color_request.get_color()
@@ -122,7 +125,7 @@ async def check_new(force=False):
                     current_rgb = new_rgb
             else:
                     print('No changes in RGB values')
-        await uasyncio.sleep(30)
+        await uasyncio.sleep(60)
 
 
 async def notify_hai():
