@@ -19,6 +19,8 @@ wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.config(pm = 0xa11140)
 
+#I recommend adding a static IP
+wlan.ifconfig(('10.1.1.76', '255.255.255.0', '10.1.1.1', '10.1.1.52'))
 
 wlan.disconnect()
 

@@ -17,9 +17,11 @@ print(gc.mem_free())
 #Purposely run without threading to avoid two modules interacting with the LED ring
 led_control.startup_anim()
 
-sleep(2)
+sleep(5)
 
-wifi_manage.disconnect()
+print(wifi_manage.wlan.status())
+if wifi_manage.wlan.status() != 3 and wifi_manage.wlan.status() != 0:
+    wifi_manage.disconnect()
 
 sleep(2)
 
@@ -35,6 +37,9 @@ for i in range(5):
         else:
             break
 
+print(wifi_manage.wlan.status())
+if wifi_manage.wlan.status() != 3:
+    machine.reset()
 
 time.sleep(2)
 
@@ -166,3 +171,4 @@ async def main():
 
 while True:
     uasyncio.run(main())
+    sleep(4)
