@@ -39,22 +39,26 @@ def startup_anim():
 
 def display_battery(percentage):
     print('Displaying battery: {}%!'.format(percentage))
-    if percentage >= 0 or percentage <= 100:
-        active_leds = round(led_count/100*percentage)
-    
-        for i in range(active_leds):
-            if i < 4:
-                ring[i] = (255, 0, 0)
-            else:
-                ring[i] = (0, 255, 0)
-            ring.write()
-            sleep(0.05)
-        
-        sleep(4)
-        clear(smooth=True, reverse=True)
 
-    else:
-        raise RuntimeError('Percentage is out of bounds!')
+    try:
+        if percentage >= 0 or percentage <= 100:
+            active_leds = round(led_count/100*percentage)
+
+            for i in range(active_leds):
+                if i < 4:
+                    ring[i] = (255, 0, 0)
+                else:
+                    ring[i] = (0, 255, 0)
+                ring.write()
+                sleep(0.05)
+
+            sleep(4)
+            clear(smooth=True, reverse=True)
+        else:
+            raise RuntimeError('Percentage is out of bounds!')
+    except:
+        print('Failed to display battery percentage!')
+        alert('error')
     
 def clear(smooth = False, reverse = False):
     print('Clearing LEDs!')
